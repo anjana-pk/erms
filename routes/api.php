@@ -1,6 +1,8 @@
 <?php
 
+use App\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,17 +19,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('createUser/', 'machineController@create_user');
+Route::get('getAllCategory', function() {
+    return response(Category::all(['category_name', 'id', 'category_id']));
+});
 
-Route::get('userLogin/','machineController@user_login');
-
-Route::post('createAdmin/','machineController@create_admin');
-
-Route::get('adminLogin/','machineController@admin_login');
-
-Route::post('machineCategory/','machineCategoryController@machine_category');  
-
-Route::post('materialCategory/','materialCategoryController@material_category');
-
-Route::post('addMachine/','Machine@add_machine');
-
+Route::post('createUser', 'UserController@fn_create_user');
+Route::post('userLogin', 'UserController@fn_user_login');
+Route::post('createCategory', 'CategoryController@fn_create_category');
